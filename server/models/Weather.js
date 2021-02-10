@@ -9,4 +9,5 @@ const weatherSchema = mongoose.Schema({
     country: { type: String }
 
 })
+
 module.exports = mongoose.model('Weather', weatherSchema)
