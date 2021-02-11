@@ -3,18 +3,19 @@ const request = require('request');
 
 getWeather = async (req, res) => {
     let currentWeather = await getCurrentWeather(req, res);
-    currentWeather=JSON.parse(currentWeather)
-    console.log("currentWeather "+currentWeather);
+    currentWeather = JSON.parse(currentWeather)
+    console.log("currentWeather " + currentWeather);
     let weather = new Weather();
+
     weather.uid = req.params.uid;
     console.log(req.params.uid)
     weather.city = req.params.city;
     weather.temp = currentWeather.main.temp;
     weather.description = currentWeather.weather[0].description;
     weather.icon = currentWeather.weather[0].icon;
-    weather.country=currentWeather.sys.country;
+    weather.country = currentWeather.sys.country;
     weather.save().then(
-        res.status(200).send(weather)).catch((error)=>res.send(error))
+        res.status(200).send(weather)).catch((error) => res.send(error))
 }
 
 getWeatherHistory = async (req, res) => {
@@ -31,10 +32,10 @@ getCurrentWeather = (req, res) => {
             // console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
             // console.log('body:', body);
             if (error)
-            reject(error);
-        else
-            resolve(body);
-        });     
+                reject(error);
+            else
+                resolve(body);
+        });
 
     })
 }
