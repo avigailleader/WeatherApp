@@ -1,4 +1,4 @@
-const weatherRouter=require('./routes/api');
+const weatherRouter = require('./routes/api');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -12,15 +12,13 @@ dotenv.config();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use('/api',weatherRouter)
+app.use('/api', weatherRouter)
+mongoose.connect(
+    process.env.DB_CONNECT,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    () => console.log("connected to mongoose")
+);
 
-mongoose.connect('mongodb+srv://avigail:avid0965@weather.cqcqp.mongodb.net/Weather?retryWrites=true&w=majority', {useNewUrlParser: true});
-const connection = mongoose.connection;
-
-connection.once('open', function() {
-    console.log("MongoDB database connection established successfully");
-})
-
-app.listen(PORT, function() {
+app.listen(PORT, function () {
     console.log("Server is running on Port: " + PORT);
 });
